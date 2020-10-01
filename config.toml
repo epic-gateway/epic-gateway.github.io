@@ -1,0 +1,41 @@
+title = "Acnodal"
+baseURL = "https://acnodal.io"
+languageCode = "en-US"
+theme = "acnodalTheme"
+
+[params]
+  frontpageimage = "images/acnodal.png"
+
+
+[menu]
+  [[menu.main]]
+    name = "PureLB"
+    pre = "images/purelb.png"
+    url = "https://purelb.io"
+    weight = 1
+  
+  [[menu.main]]
+    name = "ThermoKline"
+    pre = "images/medium-m.svg"
+    url = "https://medium.com/thermokline"
+    weight = 2
+
+    [[menu.main]]
+    name = "News"
+    pre= "images/list.svg"
+    url = "/news/"
+    weight = 3
+
+    [[menu.main]]
+    name = "Contact"
+    pre = "images/at.svg"
+    url = "mailto: info@acnodal.io"
+    weight = 4
+
+    [[menu.pages]]
+    name = ""
+    pre = "/images/acnodal.png"
+    url = "/"
+    weight = 1
+
+    

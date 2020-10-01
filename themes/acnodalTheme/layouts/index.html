@@ -1,0 +1,27 @@
+{{ define "main" }}
+<div id="jumbo-border" class="container">
+  <div id="home-jumbotron" class="jumbotron text-center" style="background:transparent" >
+    <img src={{ .Site.Params.frontpageimage }} >
+  </div>
+</div>
+
+<div id="nav-border" class="container-fluid">
+  <nav id="nav" class="nav justify-content-center">
+    <div class=row>
+      {{ range .Site.Menus.main }}
+          
+              <div class="col-lg-auto">
+                  <a class="nav-link" href="{{ .URL }}">
+                  {{ if .Pre }}
+                      <img src= {{ .Pre }} style=" width:32px; height:32px;">
+                  {{ end }}
+                  {{ $text := print .Name | safeHTML }}
+                  {{ $text }}
+                  </a>
+              </div>
+            
+      {{ end }}
+    </div>   
+  </nav>
+</div>
+{{ end }}

@@ -1,0 +1,35 @@
+{{ define "main" }}
+
+<div id="nav-border" class="container-fluid">
+    <nav id="nav" class="nav">
+   
+        {{ range .Site.Menus.pages }}
+                
+                    <a class="nav-link" href="{{ .URL }}">
+                    {{ if .Pre }}
+                        <img src= {{ .Pre }} style=" width:96px; height:96px
+                        px;">
+                    {{ end }}
+                    {{ $text := print .Name | safeHTML }}
+                    {{ $text }}
+                    </a>
+              
+              
+        {{ end }}
+       
+    </nav>
+  </div>
+
+
+<div class="container">
+<h1>{{ .Title }}</h1>
+</div>
+{{ range .Pages.ByPublishDate.Reverse }}
+    <div class="container">
+        <br>
+        {{ partial "metadata.html" . }}
+        <h3><a class="title" href="{{ .RelPermalink }}">{{ .Title }}</a></h3>  
+    </div>
+
+{{ end }}
+{{ end }}
