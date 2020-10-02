@@ -1,5 +1,5 @@
 title = "Acnodal"
-baseURL = "https://acnodal.io"
+baseURL = "https://acnodal.io/"
 languageCode = "en-US"
 theme = "acnodalTheme"
 
