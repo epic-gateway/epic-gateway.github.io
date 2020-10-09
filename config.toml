@@ -3,6 +3,9 @@ baseURL = "https://acnodal.io/"
 languageCode = "en-US"
 theme = "acnodalTheme"
 
+googleAnalytics="UA-180188455-1"
+
+
 [params]
   frontpageimage = "images/acnodal.png"
 
@@ -37,5 +40,10 @@ theme = "acnodalTheme"
     pre = "/images/acnodal.png"
     url = "/"
     weight = 1
+
+
+
+
+
 
     
