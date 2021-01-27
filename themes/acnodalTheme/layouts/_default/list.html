@@ -1,6 +1,6 @@
 {{ define "main" }}
 
-<div id="nav-border" class="container-fluid">
+<div id="nav-border" class="container-lg">
     <nav id="nav" class="nav">
    
         {{ range .Site.Menus.pages }}
@@ -18,18 +18,18 @@
         {{ end }}
        
     </nav>
-  </div>
+</div>
 
 
-<div class="container">
+<div class="container-lg">
 <h1>{{ .Title }}</h1>
 </div>
-{{ range .Pages.ByPublishDate.Reverse }}
-    <br>
-    <div class="container" style="border:2px  solid #939493; border-radius:10px ">
+    {{ range .Pages.ByPublishDate.Reverse }}
         <br>
-        {{ partial "metadata.html" . }}
-        <h4><a class="title" href="{{ .RelPermalink }}">{{ .Title }}</a></h4>
-    </div>
-{{ end }}
+        <div class="container" style="border:2px  solid #005800; border-radius:10px ">
+            <br>
+            {{ partial "metadata.html" . }}
+            <h4><a class="title" href="{{ .RelPermalink }}">{{ .Title }}</a></h4>
+        </div>
+    {{ end }}
 {{ end }}
