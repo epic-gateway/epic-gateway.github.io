@@ -5,7 +5,11 @@ Master is the current version of the website
 It is not deployed directly from the repo.  It is copied to GCP buckets for deployment
 
 ### Copying to GCP for deployment
-TBA
+1. Uncomment googleAnalytics in config.toml
+2. Render the site locally using hugo
+3. Log into GCP, switch to External Website Project
+4. www.acnodal.com - delete existing if necessary - Copy using gsutil cp -r * gs://www.acnodal.com
+5. www.acnodal.io - delete existing if necessary - Copy using gsutil cp -r * gs://www.acnodal.io
 
 
 ### Generation
