@@ -1,0 +1,76 @@
+
+<header>
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-expand-md navbar-light sticky-top bg-white">
+      <div class="container-xl">
+        <a class="navbar-brand" href={{ "/" | absURL }}><img src={{ .Site.Params.navbarbrandimage }} style="height:48px"></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-md-center" id="navbarCollapse">
+          <ul class="navbar-nav me-auto mb-2 mb-md-0">
+            {{ range .Site.Menus.main }}
+              {{ if .Name }}
+                {{ if .HasChildren }}
+
+
+                <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                 {{.Name }}</a>
+                  <div class="dropdown-menu" aria-labelledby="navDropdownMenuLink">
+                  {{ range .Children }}
+                    {{ if not .URL }}
+                      <a class="dropdown-item disabled">
+                    {{ else }}
+                      <a class="dropdown-item" href="{{ .URL }}">
+                    {{ end }}
+                    {{ if .Pre }}
+                      <img src="{{ .Pre }}" style="width:32px; height:32px;"> 
+                    {{ end }}
+                    {{ $text := print .Name | safeHTML }}
+                    {{ $text }}
+                    </a>
+                  
+                  {{ end }}
+                  </div>
+                {{ else }}      
+                  <li class="nav-item">
+                    <a class="nav-link" href="{{ .URL }}"> {{ .Name }} </a>
+                  </li>
+                {{ end }}
+              {{ end }}
+                </li>
+            {{ end }}
+
+            <li class="nav-item">
+ 
+              <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                  Contact
+                </button>
+              <!-- Modal -->
+              <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Lets talk......</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      By Email <a href="mailto:info@acnodal.io" style="color:#005800">info@acnodal.io</a>
+                      <br>
+                      You can usually find us on the <a href="https://kubernetes.slack.com/archives/C01BCB7U031" style="color:#005800">k8s/purelb slack channel</a> 
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+</header>
+

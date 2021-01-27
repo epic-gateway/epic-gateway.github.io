@@ -1,27 +1,32 @@
 {{ define "main" }}
-<div id="jumbo-border" class="container">
-  <div id="home-jumbotron" class="jumbotron text-center" style="background:transparent" >
-    <img src={{ .Site.Params.frontpageimage }} >
-  </div>
+<div class="container-fluid">
+    <div class="row">
+    
+        <div class="col-md-8 text-center align-middle">
+            <h1 class="display-2" style="color:#FF0000">Expose</h1>
+            <h1 class="display-4">Your k8s application with PureLB</h2>
+        </div>
+        <div class="col-md-4 text-left">
+                <img src="images/k8s.png" style="width:256px; height:256px; padding-bottom:20px">
+        </div>
+    </div>
 </div>
 
-<div id="nav-border" class="container-fluid">
-  <nav id="nav" class="nav justify-content-center">
-    <div class=row>
-      {{ range .Site.Menus.main }}
-          
-              <div class="col-lg-auto">
-                  <a class="nav-link" href="{{ .URL }}">
-                  {{ if .Pre }}
-                      <img src= {{ .Pre }} style=" width:32px; height:32px;">
-                  {{ end }}
-                  {{ $text := print .Name | safeHTML }}
-                  {{ $text }}
-                  </a>
-              </div>
+<div class="container-fluid bg-ltblue">
+    <div class="row">
+        <div class="col-md-2 text-center">
+            <img src="images/purelb.png"  style="width:128px; height:128px">
+        </div>
+        <div class="col-md-10" style="padding-right:100px">
+            <a hef="/purelb">
+            <h2>Open Source Service Load Balancer</h2>
+            <h4>Simplify access to your kubernetes applications using PureLB to add IP addresses to local or routed networks  
+            for services, ingresses, and service meshes using kubernetes services API</h4>
+            <br> 
             
-      {{ end }}
-    </div>   
-  </nav>
+            <a href="/purelb" class="btn btn-light btn-lg active" role="button" aria-pressed="true">Get Started with PureLB Now!</a>
+        </div>
+    </div>
 </div>
+
 {{ end }}

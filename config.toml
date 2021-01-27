@@ -3,43 +3,61 @@ baseURL = "https://acnodal.io/"
 languageCode = "en-US"
 theme = "acnodalTheme"
 
-googleAnalytics="UA-180188455-1"
+[markup.goldmark.renderer]
+unsafe= true
+
+# googleAnalytics="UA-180188455-1"
 
 
 [params]
-  frontpageimage = "images/acnodal.png"
+  navbarbrandimage = "/images/acnodal-small.png"
 
 
 [menu]
+
   [[menu.main]]
-    name = "PureLB"
-    pre = "images/purelb.png"
-    url = "https://purelb.io"
+    identifier = "products"
+    name = "Products"
     weight = 1
+
+  [[menu.main]]
+    identifier = "purelb"
+    name = "PureLB"
+    pre = "/images/purelb.png"
+    url = "/purelb/"
+    parent = "products"
+    weight = 11
+
+  [[menu.main]]
+    identifier = "coming soon"
+    name = "new. coming soon..."
+    weight = 12
+    parent = "products"
   
   [[menu.main]]
-    name = "ThermoKline"
-    pre = "images/medium-m.svg"
-    url = "https://medium.com/thermokline"
+    identifier = "resources"
+    name = "Resources"
     weight = 2
+
+  [[menu.main]]
+    name = "ThermoKline"
+    pre = "/images/medium-m.svg"
+    url = "https://medium.com/thermokline"
+    weight = 12
+    parent = "resources"
 
     [[menu.main]]
     name = "News"
-    pre= "images/list.svg"
+    pre= "/images/list.svg"
     url = "/news/"
-    weight = 3
+    weight = 11
+    parent = "resources"
+
 
     [[menu.main]]
-    name = "Contact"
-    pre = "images/at.svg"
-    url = "mailto: info@acnodal.io"
-    weight = 4
-
-    [[menu.pages]]
-    name = ""
-    pre = "/images/acnodal.png"
-    url = "/"
-    weight = 1
+    name = "About Us"
+    url = "/about/"
+    weight = 3
 
 
 
