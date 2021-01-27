@@ -3,10 +3,13 @@ baseURL = "https://acnodal.io/"
 languageCode = "en-US"
 theme = "acnodalTheme"
 
+
+googleAnalytics = "UA-180188455-1"
+
+
+
 [markup.goldmark.renderer]
 unsafe= true
-
-# googleAnalytics="UA-180188455-1"
 
 
 [params]
