@@ -1,0 +1,9 @@
+weight: 3
+title: "PureLB"
+description: >
+  <ul class="list-style-none">
+    <li>Expose</li>
+    <li>Your k8s application with Purelb</li>
+    <li>Open Source Service Load Balancer</li>
+  </ul>
+image: "images/carousel/test.png"

@@ -1,0 +1,5 @@
+weight: 1
+name: "Try PureLB today"
+icon: "fas fa-desktop"
+url: ""
+description: "Open Source Service Load Balancer Controller. Simplify access to your kubernetes applications using PureLB to add IP addresses to local or routed networks for services, ingresses, and service meshes using kubernetes services API"

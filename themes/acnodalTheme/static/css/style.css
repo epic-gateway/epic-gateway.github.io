@@ -50,3 +50,13 @@ a.title:hover {
     z-index: 10;
 }
 
+
+
+.home-carousel {
+    position: relative;
+    -webkit-transition: all 0.2s ease-out;
+    -moz-transition: all 0.2s ease-out;
+    transition: all 0.2s ease-out;
+    padding-top: 10%
+
+}
