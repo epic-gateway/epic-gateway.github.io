@@ -1,18 +1,18 @@
 {{ define "main" }}
 
 
-<section>
+<section class="bar">
     <div class="home-carousel">
         <div class="container"> 
             <div class="homepage owl-carousel"> 
                 {{ range sort .Site.Data.carousel "weight" }}
                 <div class="item">
                     <div class="row">
-                        <div class="col-sm-5">
+                        <div class="col-sm-6">
                             <h1>{{ .title }}</h1>
                             {{ .description | safeHTML }}
                         </div>
-                        <div class="col-sm-5">
+                        <div class="col-sm-6">
                             <img class="img-fluid" src="{{ .image }}" alt="">
                         </div>
                     </div>
@@ -24,20 +24,20 @@
     </div>
 </section>
 
-<section class="bar background-white">
+<section class="bar">
     <div class="container">
         {{ range $index, $element := sort .Site.Data.features "weight" }}
         {{ if eq (mod $index 3) 0 }}
         <div class="col-md-12">
             <div class="row">
         {{ end }}
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <div class="box-simple">
                         {{ with $element.url }}
                         <a href="{{ $element.url }}">
                         {{ end }}
-                            <div class="icon">
-                                <i class="{{ .icon }}"></i>
+                            <div>
+                                <img class="icon" src="{{ .image }}"></i>
                             </div>
                         {{ with $element.url }}
                         </a>

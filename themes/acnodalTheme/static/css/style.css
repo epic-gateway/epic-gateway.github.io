@@ -57,6 +57,38 @@ a.title:hover {
     -webkit-transition: all 0.2s ease-out;
     -moz-transition: all 0.2s ease-out;
     transition: all 0.2s ease-out;
-    padding-top: 10%
 
+}
+
+.bar {
+    position: relative;
+    padding: 80px 0;
+}
+
+.box-simple {
+    text-align: center;
+    margin: 40px 40px 0px 40px;
+
+  }
+
+  .box-simple .icon {
+    -webkit-transition: all 0.2s ease-out;
+    -moz-transition: all 0.2s ease-out;
+    transition: all 0.2s ease-out;
+  }
+
+  .box-simple h3 {
+    font-weight: normal;
+    font-size: 18px;
+    text-transform: uppercase;
+    line-height: 1.5;
+    color: #555555;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+  }
+
+.icon {
+    width: 96px;
+    height: 96px;
+    margin-bottom: 20px;
 }
