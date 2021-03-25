@@ -6,8 +6,8 @@
     [ Validate ]*/
     var name = $('.validate-input input[name="name"]');
     var email = $('.validate-input input[name="email"]');
-    var subject = $('.validate-input input[name="subject"]');
-    var message = $('.validate-input textarea[name="message"]');
+    var company = $('.validate-input input[name="company"]');
+    var dist = $('.validate-input input[name="dist"]');
 
 
     $('.validate-form').on('submit',function(e){
@@ -18,21 +18,23 @@
             check=false;
         }
 
-        if($(subject).val().trim() == ''){
-            showValidate(subject);
-            check=false;
-        }
-
-
         if($(email).val().trim().match(/^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{1,5}|[0-9]{1,3})(\]?)$/) == null) {
             showValidate(email);
             check=false;
         }
 
-        if($(message).val().trim() == ''){
-            showValidate(message);
+        if($(dist).val().trim() == ''){
+            showValidate(dist);
             check=false;
         }
+
+        if($(company).val().trim() == ''){
+            showValidate(company);
+            check=false;
+        }
+
+
+
         if(!check)
             return false;
 
@@ -47,16 +49,16 @@
                 
                 if(response.result == "success") {
                     $('.contact1-form')[0].reset();
-                    alert('Thank you for contacting us.');
+                    alert('Thanks for registering, we will be in contact shortly.');
                     return true;
                 }
                 else {
-                    alert("Post Function Something went wrong. Please try again.")
+                    alert("Something went wrong. Please let us know info@acnodal.io")
                 }
             },
             error: function() {
                 
-                alert("Something went wrong. Please try again.")
+                alert("Something went wrong. Please let us know info@acnodal.io")
             }
         })
     });
