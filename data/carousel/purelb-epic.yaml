@@ -1,10 +1,11 @@
-weight: 2
+weight: 3
 title: "PureLB meet EPIC"
 description: >
-  <ul class="list-style-none">
-    <li>Clean and elegant design</li>
-    <li>Full width and boxed mode</li>
-    <li>Easily readable Roboto font and awesome icons</li>
-    <li>7 preprepared colour variations</li>
+  <ul class="carousel-list">
+    <li>Add Intelligent External Ingress to k8s services</li>
+    <li>Create applications in multiple k8s clusters</li>
+    <li>Integrate CDN or legacy resources with k8s</li>
+    <li>Dynamically scale applications, reliably</li>
+    <li>Unmatched request routing, visibility & management</li>
   </ul>
-image: "images/carousel/test.png"
+image: "images/carousel/purelb-epic.png"

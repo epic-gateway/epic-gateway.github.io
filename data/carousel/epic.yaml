@@ -1,10 +1,11 @@
-weight: 1
+weight: 2
 title: "EPIC"
 description: >
-  <ul class="list-style-none">
-    <li>Clean and elegant design</li>
-    <li>Full width and boxed mode</li>
-    <li>Easily readable Roboto font and awesome icons</li>
-    <li>7 preprepared colour variations</li>
+  <ul class="carousel-list">
+    <li>Hyperscaler Ingress technology for everyone</li>
+    <li>Construct complex, micro-service applications</li>
+    <li>Edge access, performance, reliability & security</li> 
+    <li>Programmability to unlock edge compute applications</li>
+    <li>Unlock the power of managed Envoy fleets</li>
   </ul>
-image: "images/carousel/test.png"
+image: "images/carousel/epic.png"

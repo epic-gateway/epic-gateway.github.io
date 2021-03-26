@@ -60,11 +60,36 @@ a.title:hover {
 
 }
 
+
+.carousel-text h1 {
+
+    font-weight: normal;
+    font-size: 36px;
+    text-transform: uppercase;
+    line-height: 1.5;
+    color: #555555;
+    font-weight: 800;
+    letter-spacing: 0.08em;    
+}
+.carousel-list {
+    font-weight: normal;
+    line-height: 1.5;
+    color: #555555;
+    font-weight: 800;
+    letter-spacing: 0.08em;  
+
+    
+}
+
 .bar {
     position: relative;
     padding: 80px 0;
 }
 
+.bar-small {
+    position: relative;
+    padding: 20px;
+}
 
 
 .box-simple {

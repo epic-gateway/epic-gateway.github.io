@@ -1,9 +1,11 @@
-weight: 3
+weight: 1
 title: "PureLB"
 description: >
-  <ul class="list-style-none">
-    <li>Expose</li>
-    <li>Your k8s application with Purelb</li>
-    <li>Open Source Service Load Balancer</li>
+  <ul class="carousel-list">
+    <li>Expose your k8s applications</li>
+    <li>Same workflow as the Cloud</li>
+    <li>Increase Service Mesh functionality</li>
+    <li>Manage IP address allocations</li>
+    <li>Add service addresses to nodes or routers</li>
   </ul>
-image: "images/carousel/test.png"
+image: "images/carousel/purelb.png"

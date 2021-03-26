@@ -15,23 +15,23 @@ date: 2021-03-24T09:16:11-05:00
 			<div class="box-form">
         		<form class="contact1-form validate-form">
             		<div class="wrap-input1 validate-input" data-validate = "Name is required">
-			    		<input class="input1" type="text" name="name" placeholder="Name">
+			    		<input class="input1" type="text" name="name" placeholder="Name*">
 			    		<span class="shadow-input1"></span>
 	        		</div>
             		<div class="wrap-input1 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
-		        		<input class="input1" type="text" name="email" placeholder="Email">
+		        		<input class="input1" type="text" name="email" placeholder="Email*">
 		        		<span class="shadow-input1"></span>
 	        		</div>
             		<div class="wrap-input1 validate-input" data-validate = "Company Name is required">
-		        		<input class="input1" type="text" name="company" placeholder="Company">
+		        		<input class="input1" type="text" name="company" placeholder="Company*">
 			    		<span class="shadow-input1"></span>
 	        		</div>
-					<div class="wrap-input1 validate-input" data-validate = "K8s Distribution  is required">
-		        		<input class="input1" type="text" name="dist" placeholder="K8s Distribution">
+					<div class="wrap-input1 validate-input" data-validate = "k8s distribution  is required">
+		        		<input class="input1" type="text" name="dist" placeholder="k8s distribution*">
 			    		<span class="shadow-input1"></span>
 	        		</div>
 					<div class="radio-box">
-					    <p>Version requested</p>
+					    <p>Version requested*</p>
 						<input type="radio" id="snap" name="evaltype" value="snap">
 						<label for="snap"> Install Package</label>
 						<input type="radio" id="iaas" name="evaltype" value="iaas">
@@ -41,6 +41,7 @@ date: 2021-03-24T09:16:11-05:00
 		        		<textarea class="input1" name="comments" placeholder="Comments"></textarea>
 		        		<span class="shadow-input1"></span>
 					</div>
+					(*Required)
 					<div class="container-contact1-form-btn">
 						<button class="contact1-form-btn">
 							<span>

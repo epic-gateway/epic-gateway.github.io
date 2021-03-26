@@ -33,8 +33,10 @@ unsafe= true
     weight = 11
 
   [[menu.main]]
-    identifier = "coming soon"
-    name = "new. coming soon..."
+    identifier = "epic"
+    name = "EPIC"
+    pre = "/images/epic.png"
+    url = "/epic/"
     weight = 12
     parent = "products"
   

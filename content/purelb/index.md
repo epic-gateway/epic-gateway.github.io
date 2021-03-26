@@ -36,7 +36,7 @@ PureLB assigns addresses from Service Group address pools and adds them to the L
 ##### _Local Network Addresses_
 
 <br>
-<img src="/images/purelb-local.png">
+<img src="/images/purelb-local.png" style="width:550px; height:272px;">
 <br>
 </div>
 
@@ -58,7 +58,7 @@ By creating a service group that includes a range of addresses that is contained
 ##### _Routed Network Addresses_
 
 <br>
-<img src="/images/purelb-routed.png">
+<img src="/images/purelb-routed.png" style="width:550px; height:272px;">
 <br>
 </div>
 Create a service group with a new range of addresses not currently in use and PureLB will add these addresses to an interface called kube-lb0 on each node.  By adding routing software or using the routing functionality packaged with the CNI, import the kube-lb0 interface (redistribute) into the routing process and gain full control of the distribution of Load Balancer addresses.  This technique provides anycast, each node advertizes the address and upstream routers provide Equal Cost Multipath load balancing.  As routing protocols are designed to update (converge) when node failure occurs, this also provides a solution for redundancy.  Add some firewall rules to your router and the attack surface of your application becomes very small.

@@ -2,4 +2,4 @@ weight: 1
 name: "Try PureLB today"
 image: "images/purelb.png"
 url: "/purelb"
-description: "Simplify access to your k8s applications using PureLB to add IP addresses to local or routed networks for services, ingresses, and service meshes using kubernetes services API"
+description: "The Open Source k8s Service LoadBalancer controller thats easy to use, manage & troubleshoot"
