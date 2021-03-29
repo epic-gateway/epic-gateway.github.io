@@ -1,0 +1,11 @@
+weight: 2
+title: "EPIC"
+description: >
+  <ul class="carousel-list">
+    <li>Hyperscaler Ingress technology for everyone</li>
+    <li>Construct complex, micro-service applications</li>
+    <li>Edge access, performance, reliability & security</li> 
+    <li>Programmability to unlock edge compute applications</li>
+    <li>Unlock the power of managed Envoy fleets</li>
+  </ul>
+image: "images/carousel/epic.png"

@@ -16,3 +16,5 @@ Acnodal launched an online publication called ThermoKline on the popular online 
 
 ##### About Acnodal, Inc.
 Acnodal is a developer of Cloud Native Network infrastructure. We unlock the potential of Cloud Native technology in  Hybrid and Private Cloud deployments. Acnodal was founded in 2020 by experts in large scale infrastructure development and deployment.
+
+4/16/2020

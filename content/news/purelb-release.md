@@ -8,7 +8,7 @@ date: 2020-10-01T08:27:30-04:00
 
 ---
 
-Boston, MA, For Immediate Release - Acnodal has released PureLB, an open-source Kubernetes Service Load Balancer orchestrator.  PureLB accelerates the deployment of hybrid cloud production applications by simplifying and streamlining how applications are accessed outside the cluster.
+Boston, MA, Oct 1, 2020. For Immediate Release - Acnodal has released PureLB, an open-source Kubernetes Service Load Balancer orchestrator.  PureLB accelerates the deployment of hybrid cloud production applications by simplifying and streamlining how applications are accessed outside the cluster.
 
 “During 2018 and 2019, we built a large scale private cloud system for a European auto manufacturer, we were surprised that there were no robust, simple and scalable Service Load Balancer solutions available”, said Adam Dunstan, co-founder Acnodal.  “The public cloud providers  solutions are tied to their Cloud, so we started Acnodal to provide a solution for Hybrid Clouds”. 
 

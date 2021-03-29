@@ -1,9 +1,19 @@
 <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8"> 
+    {{ $description_plain := default .Site.Params.defaultDescription .Description | markdownify | plainify }}
+    <meta name="description" content="{{ $description_plain }}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="{{"css/bootstrap.min.css" | relURL }}">
     <link rel="stylesheet" type="text/css" href="{{"css/style.css" | relURL }}">
     <script src="{{"js/bootstrap.bundle.min.js" | relURL }}"></script>
+   
+    <!-- owl carousel CSS -->
+    <link href="{{ "css/owl.carousel.css" | relURL}}" rel="stylesheet">
+    <link href="{{ "css/owl.theme.css" | relURL}}" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="{{ "js/owl.carousel.min.js" | relURL }}"></script>
+    <script src="{{ "js/front.js" | relURL }}"></script>
+
     {{ $title := print .Site.Title " | " .Title }}
     {{ if .IsHome }}{{ $title = .Site.Title }}{{ end }}
     <title>{{ $title }}</title>
