@@ -8,7 +8,7 @@ date: 2021-03-24T09:16:11-05:00
 		<div class="col-md-6">
 			<div class="box-simple">
 				<h3>EPIC Early Availability</h3>
-				<p>Want to try the first Intelligent External Ingress, we are ready.  You will need PureLB installed on your cluster, we will provide a link to updated PODs that add the new EPIC functionality.  The initial version of EPIC is available to be installed on our own hardware or VMs.  We also have EPIC IaaS where you can try use EPIC running on our Cloud.  Please complete the form so we can make sure that we can support your trial and we will be in contact </p>
+				<p>Want to try the first Intelligent External Ingress, we are ready.  You will need PureLB installed on your cluster, we will provide a link to updated PODs that add the new EPIC functionality.  The initial version of EPIC is available to be installed on your own hardware or VMs.  We also have EPIC IaaS where you can try use EPIC running on our Cloud.  Please complete the form so we can make sure that we can support your trial and we will be in contact </p>
 			</div>
 		</div>
 		<div class="col-md-6">
