@@ -2,4 +2,4 @@ weight: 1
 name: "Try PureLB today"
 image: "images/purelb.png"
 url: "/purelb"
-description: "The Open Source k8s Service LoadBalancer controller thats easy to use, manage & troubleshoot"
+description: "The Open Source k8s Service LoadBalancer Controller thats easy to use, manage & troubleshoot"
