@@ -1,32 +1,59 @@
 {{ define "main" }}
-<div class="container-fluid">
-    <div class="row">
-    
-        <div class="col-md-8 text-center align-middle">
-            <h1 class="display-2" style="color:#FF0000">Expose</h1>
-            <h1 class="display-4">Your k8s application with PureLB</h2>
-        </div>
-        <div class="col-md-4 text-left">
-                <img src="images/k8s.png" style="width:256px; height:256px; padding-bottom:20px">
-        </div>
-    </div>
-</div>
 
-<div class="container-fluid bg-ltblue">
-    <div class="row">
-        <div class="col-md-2 text-center">
-            <img src="images/purelb.png"  style="width:128px; height:128px">
-        </div>
-        <div class="col-md-10" style="padding-right:100px">
-            <a hef="/purelb">
-            <h2>Open Source Service Load Balancer</h2>
-            <h4>Simplify access to your kubernetes applications using PureLB to add IP addresses to local or routed networks  
-            for services, ingresses, and service meshes using kubernetes services API</h4>
-            <br> 
+
+<section class="bar">
+    <div class="home-carousel">
+        <div class="container"> 
+            <div class="homepage owl-carousel"> 
+                {{ range sort .Site.Data.carousel "weight" }}
+                <div class="item">
+                    <div class="row">
+                        <div class="col-sm-6 carousel-text">
+                            <h1>{{ .title }}</h1>
+                            {{ .description | safeHTML }}
+                        </div>
+                        <div class="col-sm-6">
+                            <img class="img-fluid" src="{{ .image }}" alt="">
+                        </div>
+                    </div>
+                </div>
+                {{ end }}
+            </div> 
             
-            <a href="/purelb" class="btn btn-light btn-lg active" role="button" aria-pressed="true">Get Started with PureLB Now!</a>
         </div>
     </div>
-</div>
+</section>
 
-{{ end }}
+<section>
+    <div class="container">
+        {{ range $index, $element := sort .Site.Data.features "weight" }}
+        {{ if eq (mod $index 3) 0 }}
+        <div class="col-md-12">
+            <div class="row">
+        {{ end }}
+                <div class="col-md-6">
+                    <div class="box-simple">
+                        {{ with $element.url }}
+                        <a href="{{ $element.url }}">
+                        {{ end }}
+                            <div>
+                                <img class="icon" src="{{ .image }}"></i>
+                            </div>
+                        {{ with $element.url }}
+                        </a>
+                        {{ end }}
+                        <h3>{{ $element.name | markdownify }}</h3>
+                        <p>{{ $element.description | markdownify }}</p>
+                    </div>
+                </div>
+        {{ if or (eq (mod $index 3) 2) (eq $index (sub (len $.Site.Data.features) 1 )) }}
+            </div>
+        </div>
+        {{ end }}
+        {{ end }}
+    </div>
+</section>
+
+
+
+{{ end }} 
