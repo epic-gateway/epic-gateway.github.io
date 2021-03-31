@@ -1,6 +1,6 @@
 ---
 title: "EPIC - the first Intelligent External Ingress"
-date: 2021-03-31T09:00:30-04:00
+date: 2021-03-31T08:00:30-04:00
 ---
 
 
