@@ -117,7 +117,16 @@ a.title:hover {
 .icon {
     width: 96px;
     height: 96px;
+    margin-bottom: 23px;
+    margin-top: 22px;
+}
+
+.iconkubecon{
+
+    width: 229px;
+    height: 121px;
     margin-bottom: 20px;
+  
 }
 
 /* Registration box */

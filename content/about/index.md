@@ -3,14 +3,21 @@ title: "About Us"
 date: 2021-01-27T09:16:11-05:00
 ---
 
-### About Acnodal
+### Acnodal leveraged Cloud re-platforming into Hyperscale applications 
 
 ---
+ 
 
-##### _Acnodal is a cloud native network infrastructure company._ 
+Cloud re-platforming should enable every organization to scale their Cloud applications to Hyperscale.  Unfortantely todays service edge platforms, either tradition enterprise or those offered by Cloud Providers lack capability and platform integration to make scaling to hyperscale possible.
 
-Containers and kubernetes are at the center of cloud native computing and Devops is the methodology used to operate these systems.  Prior to founding Acnodal we spent years working to understand the network infrastructure needs of devops teams and realized that traditional network companies viewed devops as "just another protocol problem".  They added a protocol, created their own special protocol or co-opted something from devops, then claimed "cloud native" and went back to convincing customers to buy into their technology walled garden.  
+Organizations without development skills struggle with outdated technology and those with developers spend significant time and resources creating and maintaining custom solutions.  
 
-We are a new type of network infrastructure company, we focus on the deep integration necessary to successfully implement Cloud Native Infrastructure.
+Acnodals Solution consists of two components:
+
+* EPIC, is the first full stack, microservice platform combining network connectivity and application request logic used to construct hyperscale applications. It is deployed at the application edge where requests diverge to different systems, on-premise, in the cloud or in datacenter or CSP network edges.
+
+* PureLB, our Kubernetes Load Balancer controller, simplifies application access, leverages existing DevOps, integrating EPIC with multi-cloud Kubernetes.
+
+Using the Acnodal platform, complex applications can be scaled among Cloud Providers, Private datacenters, geographically dispersed with application deployment and management using the Devops tools that manage Kubernetes
 
 Acnodal, Inc. is a private company founded in 2020 by experts in large scale infrastructure development and deployment.  Contact us to learn more.

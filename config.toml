@@ -1,10 +1,10 @@
 title = "Acnodal - Intelligent Ingresses"
-baseURL = "https://acnodal.io/"
+baseURL = "https://www.acnodal.io/"
 languageCode = "en-US"
 theme = "acnodalTheme"
 
 
-# googleAnalytics = "UA-180188455-1"
+googleAnalytics = "UA-180188455-1"
 
 
 
@@ -13,7 +13,7 @@ unsafe= true
 
 
 [params]
-  navbarbrandimage = "/images/acnodal-small.png"
+  navbarbrandimage = "/images/logo-org.png"
   defaultDescription = "Unlocking Hyperscaler Ingress Technology for Everyone"
 
 
