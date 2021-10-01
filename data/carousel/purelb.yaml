@@ -3,9 +3,10 @@ title: "PureLB"
 description: >
   <ul class="carousel-list">
     <li>Expose your k8s applications</li>
-    <li>Same workflow as the Cloud</li>
+    <li>Only IPv6 Dual Stack controller</li>
     <li>Increase Service Mesh functionality</li>
     <li>Manage IP address allocations</li>
     <li>Add service addresses to nodes or routers</li>
+    <li>Public Cloud with LoadBalancer class support</li>
   </ul>
 image: "images/carousel/purelb.png"

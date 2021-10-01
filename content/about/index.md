@@ -3,7 +3,7 @@ title: "About Us"
 date: 2021-01-27T09:16:11-05:00
 ---
 
-### Acnodal leveraged Cloud re-platforming into Hyperscale applications 
+### Acnodal leverages Cloud re-platforming into seamless growth to Hyperscale 
 
 ---
  
