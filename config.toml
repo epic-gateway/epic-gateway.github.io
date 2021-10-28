@@ -1,4 +1,4 @@
-title = "Acnodal - Intelligent Ingresses"
+title = "Acnodal - Simplifying k8s Edge Access"
 baseURL = "https://www.acnodal.io/"
 languageCode = "en-US"
 theme = "acnodalTheme"
@@ -14,7 +14,7 @@ unsafe= true
 
 [params]
   navbarbrandimage = "/images/logo-org.png"
-  defaultDescription = "Unlocking Hyperscaler Ingress Technology for Everyone"
+  defaultDescription = "Simplifying k8s Edge Access"
 
 
 [menu]

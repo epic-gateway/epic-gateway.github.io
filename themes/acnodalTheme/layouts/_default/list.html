@@ -1,35 +1,37 @@
 {{ define "main" }}
 
-<div id="nav-border" class="container-lg">
-    <nav id="nav" class="nav">
+<div class="container-fluid bg-white">
+    <div id="nav-border" class="container-lg">
+        <nav id="nav" class="nav">
    
-        {{ range .Site.Menus.pages }}
+            {{ range .Site.Menus.pages }}
                 
-                    <a class="nav-link" href="{{ .URL }}">
-                    {{ if .Pre }}
-                        <img src= {{ .Pre }} style=" width:96px; height:96px
-                        px;">
-                    {{ end }}
-                    {{ $text := print .Name | safeHTML }}
-                    {{ $text }}
-                    </a>
+                        <a class="nav-link" href="{{ .URL }}">
+                        {{ if .Pre }}
+                            <img src= {{ .Pre }} style=" width:96px; height:96px
+                            px;">
+                        {{ end }}
+                        {{ $text := print .Name | safeHTML }}
+                        {{ $text }}
+                        </a>
               
               
-        {{ end }}
+            {{ end }}
        
-    </nav>
-</div>
+        </nav>
+    </div>
 
 
-<div class="container-lg">
-<h1>{{ .Title }}</h1>
-</div>
-    {{ range .Pages.ByPublishDate.Reverse }}
-        <br>
-        <div class="container" style="border:2px  solid #005800; border-radius:10px ">
+    <div class="container-lg">
+    <h1>{{ .Title }}</h1>
+    </div>
+        {{ range .Pages.ByPublishDate.Reverse }}
             <br>
-            {{ partial "metadata.html" . }}
-            <h4><a class="title" href="{{ .RelPermalink }}">{{ .Title }}</a></h4>
-        </div>
-    {{ end }}
+            <div class="container bg-white" style="border:2px  solid #005800; border-radius:10px ">
+                <br>
+                {{ partial "metadata.html" . }}
+                <h4><a class="title" href="{{ .RelPermalink }}">{{ .Title }}</a></h4>
+            </div>
+        {{ end }}
+</div>
 {{ end }}
