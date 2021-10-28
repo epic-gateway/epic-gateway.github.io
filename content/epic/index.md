@@ -3,18 +3,12 @@ title: "EPIC"
 date: 2021-01-27T09:16:11-05:00
 ---
 
-<div class="row">
-    <div class="col-md-6">
-    <img src="/images/carousel/epic.png">
-    </div>
-    <div class="col-md-6">
-</br></br>
 
-## _EPIC_ ## 
-Unlock the full functionality of Hyperscaler Ingress technology.  EPIC, the Intelligent External Ingresses operates outside the k8s cluster at the system, network and edge-compute edge implementing the logic that constructs web and mobile applications using containers, CDN and legacy systems.   EPIC provides Intelligent External Ingresses with devops simplicity employing native Kubernetes APIs used in public clouds avoiding specialized tooling or workflow.
+<img src="/images/epic-detail.png" style="width:1000px">
 
-</div>
-</div>
+EPIC, the Intelligent External Ingresses operates outside the k8s cluster at the system, network and edge-compute edge implementing the logic that constructs web and mobile applications using containers, CDN and legacy systems.   EPIC provides Intelligent External Ingresses with devops simplicity employing native Kubernetes APIs used in public clouds avoiding specialized tooling or workflow.
+
+
 <div class="bar-small"></div>
 
 <div id="hybrid" class="row">
@@ -22,7 +16,7 @@ Unlock the full functionality of Hyperscaler Ingress technology.  EPIC, the Inte
 
 #### _Hybrid & MultiCloud_
 
-<img src="/images/hybrid-multi.png" style="width:550px;">
+<img src="/images/hybrid-multi.png" style="width:440px;">
 
 </div>
     <div class="col-md-6">
@@ -30,7 +24,7 @@ Unlock the full functionality of Hyperscaler Ingress technology.  EPIC, the Inte
 #### _Complex Edge Applications_
 </br>
 </br>
-<img src="/images/complex-edge.png" style="width:550px; ">
+<img src="/images/complex-edge.png" style="width:440px; ">
 </div>
 </div>
 

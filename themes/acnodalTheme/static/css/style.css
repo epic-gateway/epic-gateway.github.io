@@ -6,12 +6,16 @@
 }
 
 .body {
-    font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: 'Open Sans', sans-serif;
+    background-color: #abffab;
+   
 }
+
 
 a.title {
     color:#005800;
 }
+
 
 a.title:hover {
     color:#00ff0b;
@@ -42,9 +46,12 @@ a.title:hover {
 
 
 .container-fluid {
-    padding-top: 50px;
-    padding-bottom: 50px;
+    padding-top: 80px;
+    padding-bottom: 80px;
+    
   }
+
+
 
 .modal-backdrop {
     z-index: 10;
@@ -54,12 +61,12 @@ a.title:hover {
 
 .home-carousel {
     position: relative;
-    -webkit-transition: all 0.2s ease-out;
-    -moz-transition: all 0.2s ease-out;
-    transition: all 0.2s ease-out;
+    background-color: white;
+    -webkit-transition: all 0.5s ease-out;
+    -moz-transition: all 0.5s ease-out;
+    transition: all 0.5s ease-out;
 
 }
-
 
 .carousel-text h1 {
 
@@ -83,7 +90,8 @@ a.title:hover {
 
 .bar {
     position: relative;
-    padding: 80px 0;
+    padding: 40px 0;
+    background-color: white;
 }
 
 .bar-small {
