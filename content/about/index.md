@@ -3,11 +3,14 @@ title: "About Us"
 date: 2021-01-27T09:16:11-05:00
 ---
 
-### Acnodal - Enabling Cloud & Service Heterogeneity  
+### Acnodal - Unlocking application value by removing legacy access friction  
 
 ---
 
-Kubernetes is important, its Service abstraction removes the need for developers to understand infrastructure.  The Service abstraction enjoys a network effect, the more services abstracted the more powerful it becomes.  
+Kubernetes is important, its Service abstraction removes the need for developers to understand infrastructure.  The Service abstraction enjoys a network effect, the more services abstracted the more powerful it becomes. 
+
+
+There is a problem blocking 
 
 There are numerous solutions and vendors pursuing network or application Service abstraction.  Some view the network service mesh as the foundation on which infrastructure clusters are built and others apply an application view operating at Layer 7 with Application Service Meshes.  Cloud Providers offer vertically integrated solutions each unique to their platform. They are all valid solutions, each with their strengths and weaknesses, however their primary problem is that they are all homogeneous, winner takes all implementations.
 

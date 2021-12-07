@@ -1,10 +1,10 @@
-title = "Acnodal - Simplifying k8s Edge Access"
+title = "Acnodal - k8s Application Access"
 baseURL = "https://www.acnodal.io/"
 languageCode = "en-US"
 theme = "acnodalTheme"
 
 
-googleAnalytics = "UA-180188455-1"
+# googleAnalytics = "UA-180188455-1"
 
 
 
@@ -14,56 +14,38 @@ unsafe= true
 
 [params]
   navbarbrandimage = "/images/logo-org.png"
-  defaultDescription = "Simplifying k8s Edge Access"
+  defaultDescription = "Application Access for k8s"
 
 
 [menu]
 
   [[menu.main]]
-    identifier = "products"
-    name = "Products"
+    identifier = "platform"
+    name = "Application Access Platform"
+    url="/platform/"
     weight = 1
 
   [[menu.main]]
-    identifier = "purelb"
-    name = "PureLB"
-    pre = "/images/purelb.png"
-    url = "/purelb/"
-    parent = "products"
-    weight = 11
-
-  [[menu.main]]
-    identifier = "epic"
-    name = "EPIC"
-    pre = "/images/epic.png"
-    url = "/epic/"
-    weight = 12
-    parent = "products"
+    identifier = "solution"
+    name = "Solutions"
+    url="/#solutions"
+    weight = 2
   
   [[menu.main]]
     identifier = "resources"
     name = "Resources"
-    weight = 2
+    url="/#resources"
+    weight = 3
 
   [[menu.main]]
-    name = "ThermoKline"
-    pre = "/images/medium-m.svg"
-    url = "https://medium.com/thermokline"
-    weight = 12
-    parent = "resources"
-
-    [[menu.main]]
-    name = "News"
-    pre= "/images/list.svg"
-    url = "/news/"
-    weight = 11
-    parent = "resources"
+    identifier = "contact"
+    name = "Contact"
+    weight = 4
 
 
-    [[menu.main]]
-    name = "About Us"
-    url = "/about/"
-    weight = 3
+   
+
+
 
 
 
