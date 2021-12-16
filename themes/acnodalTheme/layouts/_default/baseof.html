@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="{{ .Site.LanguageCode }}">
+<html lang="{{ .Site.LanguageCode }}" class="h-100">
 
     {{- partial "head.html" . -}}
-    <body class="body">
+    <body class="body d-flex flex-column h-100 ">
         {{- partial "header.html" . -}}
         <div id="content">
         {{- block "main" . }}{{- end }}
