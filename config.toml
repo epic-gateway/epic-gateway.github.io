@@ -40,6 +40,7 @@ unsafe= true
   [[menu.main]]
     identifier = "contact"
     name = "Contact"
+    url="/forms/contact/"
     weight = 4
 
 
