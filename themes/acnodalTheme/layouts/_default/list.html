@@ -27,7 +27,7 @@
     </div>
         {{ range .Pages.ByPublishDate.Reverse }}
             <br>
-            <div class="container bg-white" style="border:2px  solid #005800; border-radius:10px ">
+            <div class="container bg-white">
                 <br>
                 {{ partial "metadata.html" . }}
                 <h4><a class="title" href="{{ .RelPermalink }}">{{ .Title }}</a></h4>
