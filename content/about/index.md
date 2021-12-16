@@ -3,23 +3,26 @@ title: "About Us"
 date: 2021-01-27T09:16:11-05:00
 ---
 
-### Acnodal - Unlocking application value by removing legacy access friction  
+### Acnodal - Realizing Kubernetes Application value   
 
 ---
 
-Kubernetes is important, its Service abstraction removes the need for developers to understand infrastructure.  The Service abstraction enjoys a network effect, the more services abstracted the more powerful it becomes. 
+Kubernetes is important and will continue evolve and grow in popularity.  It offers two critical benefits.
 
+* Service abstraction removes the need for developers to understand infrastructure and enjoys a network effect as more abstracted infrastructure is deployment
+* Highly dynamic workloads enable the rapid scaling, simplified maintenance and more importantly new types of applications platforms, the Metaverse demands containerization.
 
-There is a problem blocking 
+Unfortunately, just as Virtualization helped infrastructure teams but did little for developers, Kubernetes has benefited developers but the complexity of creating the infrastructure has created a significant challenge for infrastructure engineering teams.  There is a lot of activity to address the complexity of k8s infrastructure, some companies genuinely addressing complexity, some simply covering it up in UIs or packaging.
 
-There are numerous solutions and vendors pursuing network or application Service abstraction.  Some view the network service mesh as the foundation on which infrastructure clusters are built and others apply an application view operating at Layer 7 with Application Service Meshes.  Cloud Providers offer vertically integrated solutions each unique to their platform. They are all valid solutions, each with their strengths and weaknesses, however their primary problem is that they are all homogeneous, winner takes all implementations.
+Acnodal is focused on solving a key component of the networking problem, Production Application Access.  To date are retooled web2.0 and virtualization solutions have been used in an attempt to provide application access offering limited functionality, causing developer friction, and often violating security and isolation best practices.  It is common for legacy technologies to be retooled for new environments and for them to get initial traction, until a purpose build solution becomes available.
 
-At Acnodal, we look at this problem differently. With an understanding  application developer needs and network infrastructure, we look at the problem from a customer application access perspective.  Applications are developed to serve customers, the Edge is the first place where a customer touches the application.  
+The Acnodal Platform is the first Application Access platform built for Kubernetes using Kubernetes. Natively integrated into the k8s cluster API's using standard mechanisms, it addresses developer complexity, and follows the operational and deployment pattern of separating access from customer applications and data.  Further it provides North-South Multi-cloud compatible with Public Clouds, Vendor packaged and upstream Kubernetes.
 
-Our platforms focus on the Access Edge, providing the maximum amount of functionality, visibility and control enabling those applications to be distributed among multiple service infrastructures, within one cloud, multiple clouds or emerging hybrid clouds irrespective of the Service abstraction solution used, we just require basic, standard Kubernetes. 
+The Application Access platform is a comprehensive turn key solution to HTTP or API applications.  Developing a platform that spans Developer Service abstraction and low level networking including routing and packet forwarding requires a unique skill.  We have employed new and leading edge technologies to implement the Acnodal platforms such as eBPF and the new Kubernetes Gateway API.
 
-Our heterogeneous platform provides edge access functionality that is not offered by Cloud Providers or on-premise vendors.  Instead of sharing your edge platform with thousands of other unknown Cloud provider customers, being part of the biggest hacker honeypots in the internet, Acnodal provides an alternative that allows you to manage your customers experience, at one Cloud Provider, Multiple Cloud Providers or in a Hybrid Cloud.
+Our products include the Open Source LoadBalancer Controller PureLB, contributed to the community in 2020 and is the only Controller that support integrated CNI routing and Dual Stack IPv6.  The Application Access Platform consists of EPIC, the Application Gateway System and PureGW, the Gateway controller deployed in each Kubernetes Cluster.  The platform can be deployed on premise or in a datacenter controlled by our customers.  Acnodal also offers a Gateway-as-a-Service, where Gateways can be consumed individually, with Gateway Platforms deployed in a number of datacenters worldwide. 
 
+Application Gateways are a fundamental infrastructure component in our interconnected world, Acnodal is committed to modernizing this key infrastructure so our customers can continue to grow and build exciting application experiences for their customers
 
 
 Acnodal, Inc. is a private company founded in 2020 by experts in large scale infrastructure development and deployment.  Contact us to learn more.

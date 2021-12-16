@@ -26,7 +26,7 @@ method="post" target="hidden_iframe" onsubmit="submitted=true;">
         <input type="email" placeholder="Email address*" class="form-input" name="entry.1597104814" required>
 
    <label>Give us a bit of background on your k8s deployment</label>
-        <textarea rows="5" placeholder="" class="form-input" name="entry.7019661" ></textarea>
+        <textarea rows="5" placeholder="Public Cloud, Vendor Packaging, Upstream?" class="form-input" name="entry.7019661" ></textarea>
 
    <button type="submit">Send</button>
 </form>
