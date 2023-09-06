@@ -16,6 +16,8 @@ unsafe= true
   navbarbrandimage = "/images/logo-org.png"
   defaultDescription = "Application Access for k8s"
 
+[permalinks]
+	go-packages = "/:filename/"
 
 [menu]
 
