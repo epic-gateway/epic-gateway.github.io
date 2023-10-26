@@ -3,6 +3,9 @@ languageCode = 'en-us'
 title = ''
 
 
+enableRobotsTXT = true
+disableKinds = ["taxonomy", "RSS"]
+
 [[menu.main]]
     name = "Source"
     weight = 50
