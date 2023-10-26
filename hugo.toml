@@ -1,0 +1,36 @@
+baseURL = 'https://epic-gateway.org'
+languageCode = 'en-us'
+title = ''
+
+
+[[menu.main]]
+    name = "Source"
+    weight = 50
+    url = "https://github.com/epic-gateway"
+    pre = "<i class='fab fa-github'></i>"
+
+[[menu.main]]
+    name = "Acnodal"
+    weight = 60
+    url = "https://www.acnodal.io"
+
+
+[module]
+  proxy = "direct"
+  # uncomment line below for temporary local development of module
+  # replacements = "github.com/google/docsy -> ../../docsy"
+  [module.hugoVersion]
+    extended = true
+    min = "0.73.0"
+  [[module.imports]]
+    path = "github.com/google/docsy"
+    disable = false
+  [[module.imports]]
+    path = "github.com/google/docsy/dependencies"
+    disable = false
+
+[params.ui]
+navbar_logo = true
+
+[params.mermaid]
+enable = true
