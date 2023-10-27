@@ -1,7 +1,7 @@
 ---
-title: "Introduction"
+title: "The EPIC Gateway Platform"
 linkTitle: "Introduction"
-weight: 2
+weight: 10
 description: >
  Introduction to EPIC
 ---

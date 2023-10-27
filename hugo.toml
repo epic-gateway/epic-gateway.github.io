@@ -37,3 +37,14 @@ navbar_logo = true
 
 [params.mermaid]
 enable = true
+theme = "neutral"
+
+[params.markmap]
+enable = true
+
+[sitemap]
+  changefreq = "monthly"
+  filename = "sitemap.xml"
+  priority = 0.5
+
+
