@@ -12,8 +12,11 @@ type = "docs"
 
 EPIC is an API Gateway Platform designed for and built with Kubernetes.
 
-Add epic diagram.
+<p align="center">
+<img src ="images/epic-main.png" style = "width:600px">
+</p>
 
+ 
 
 The Platform consists of 4 components
 
@@ -51,11 +54,32 @@ To monitor the EPIC Gateway Cluster, add the Prometheus controller and configure
 EPIC is a k8s cluster, any tools currently in use can be integrated.
 
 ### k8s Gateway Controller
-The Gateway Controller is installed on *k8s workload clusters*.  It enables 
+The Gateway Controller is installed on *k8s workload clusters*.  It enables cluster users to create Gateways and routes.  It uses the standard Kubernetes GatewayAPI with implementation specific extensions to integrate with the EPIC Gateway.  
+
+Once the controller is installed, Gateway Class Configurations and Gateway Classes are created.  The Gateway Class Config is the EPIC specific configuration and contains the address of the EPIC gateway cluster, user account information and the name of the template that will be used to create the Gateway and its proxy instances.  The GatewayClass is part of the standard GatewayAPI and makes the ability to create a Gateway available in the cluster.
+
+To create a Gateway, a cluster user defines a gateway referencing the EPIC controller and the gatewayclass.  Gateways are namespaced objects and by default can only be access from that namespace, the gateway configuration can contain permissions to share the gateway across namespaces in the cluser
+
+Once the gateway object is created, EPIC creates the Gateway and it's assoicated proxies allocating and returning the IP address and/or DNS name for the gateway.  To use the gateway routes are created referencing the gateway and services assoicated with the application PODs.  EPIC supports http routes and TCP routes.  
+
+If multicuster is defined in the EPIC gateway template, a Gateway can be created that shares a previously created gateway in a different workload cluster.
+
+EPIC and the Gateway controller implement a UDP encapsulation transport that transports requests.  The outer addresses are the target public addresses while the inner addresses reference the POD CNI addresses implementing direct to POD transport
 
 
 ### Linux Gateway Controller
+The Linux Gateway Controller follows the same model as the k8s Gateway Controller but can be installed on Linux hosts without k8s or containers.  It can be used as a mechanism to integrate other hosts into an applicaiton accessed via the gateway.  (note that static endpoints can also be defined in the envoy configuration in the EPIC gateway) With some configuraiton it can also be used to provide access to the KubeAPI to externally access kubectl functionality.  
 
 
 ### Gateway Service Manager
+
+The platform is ideally suited to provide a Gateway-as-a-Service infrastructure.  
+
+<p align="center">
+<img src ="images/gwsm-working.png" style = "width:600px">
+</p>
+
+The Gateway Service Manager can be run on the same or a different cluster.  It provides a simple GUI interface displaying the configuration templates and the configuration of active gateways.  It is namespace based and integrations with GitHUB using OAUTH to dynamically create customer accounts.  In particular, the Gateway Service Manager provides a graphical visualization of each gateway making it easy to understand and troubleshot the configuration of any gateway.
+
+
 
