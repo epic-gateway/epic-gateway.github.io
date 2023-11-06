@@ -7,7 +7,7 @@ weight: 10
 EPIC is a Gateway for Kubernetes.  It uses the *new* gateway API to simplify the administration and creation of API and Application Gateways.  The Gateway, EPIC, works with the EPIC Gateway Controller installed on the k8s cluster.
 
 <p align="center">
-<img src="./gwsm-working.png" style="width:600px">
+<img src="gwsm-working.png" style="width:600px">
 </p>
 
 
