@@ -5,6 +5,7 @@ title = ''
 
 enableRobotsTXT = true
 disableKinds = ["taxonomy", "RSS"]
+ignoreErrors = ["error-disable-taxonomy"]
 
 [[menu.main]]
     name = "Source"
@@ -54,4 +55,3 @@ enable = true
 
 [markup.goldmark.renderer]
 unsafe= true
-
