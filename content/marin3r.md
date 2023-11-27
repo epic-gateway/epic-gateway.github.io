@@ -1,6 +1,8 @@
 ---
 title: marin3r
 repo: https://github.com/epic-gateway/marin3r
-packages: ["epic-gateway.org/marin3r"]
-type: minimal
+package: epic-gateway.org/marin3r
+type: golang-package-redirect
+toc_hide: true
+hide_summary: true
 ---
