@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="go-import" content="{{ .Params.package }} git {{ .Params.repo }}" >
+    <meta name="go-source" content="{{ .Params.package }} {{ .Params.repo }} {{ .Params.repo }}/tree/master{/dir} {{.Params.repo}}/blob/master{/dir}/{file}#L{line}" >
+  </head>
+  <body class="golang-package-redirect">
+      Redirecting golang's package index to {{ .Params.repo }}. See this page's source for more info.
+  </body>
+</html>

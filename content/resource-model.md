@@ -1,6 +1,7 @@
 ---
 title: resource-model
 repo: https://github.com/epic-gateway/resource-model
-packages: ["epic-gateway.org/resource-model"]
-type: minimal
+package: epic-gateway.org/resource-model
+type: golang-package-redirect
+toc_hide: true
 ---
