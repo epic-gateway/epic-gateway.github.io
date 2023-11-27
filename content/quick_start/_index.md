@@ -1,9 +1,9 @@
 ---
-title: "Vagrant based Test & Development"
+title: "Quick start using Vagrant"
 linkTitle: "Quick Start (Dev & Test)"
 weight: 20
 description: >
- Quick start using Vagrant to create EPIC & workload cluster
+ Create a single node Gateway and Workload Node
 ---
 
 
@@ -21,7 +21,7 @@ _Hint_: on a recent Debian or Ubuntu system this command will install the tools 
 # apt-get update && apt-get install -y git ansible bridge-utils vagrant-libvirt qemu-kvm
 ```
 
-# Single Node
+## Single Node
 The Single Node vagrant install created a single node EPIC Gateway and Client k8s cluster. Both are connected to the Vagrant default so they can communicate between gateway and client, and have access to the internet.  However the environment is self contained and does not provide a mechanism to expose the allocated gateway addresses outside of the environment.  However it is very useful for quickly getting a working environment to test and understand the platform.  Also should you choose to try the more complex vagrant multinode or install EPIC on a physical cluster the single node environment can be valuaable as a working reference environment as your customize a production configuration for your needs.
 
 
@@ -274,28 +274,3 @@ The following can be used to test the gateway.
 Note the headers, these are configured in the ```lbsg``` and ```gwp``` objects.
 
 
-
-
-
-## Multi-node
-The multinode is more representative of a production environment.
-
-
-```mermaid
-graph LR
-
-net2 --- R1[router] --- net1
-net1 --- E1[EPIC Node 1]
-net1 --- E2[EPIC Node 2] 
-net1 --- E3[EPIC Node 3]
-net1 --- K1[k8s node 1]
-net1 --- K2[k8s node 2]
-net1 --- K3[k8s node 3]
-net2([net brext0])
-net1([net user-epic0])
-
-```
-
-Scripts are provided to create a router vm using frr, 3 node EPIC cluster and 3 node workload cluster.  It requires an additional linux bridge to be configured to operate and this bridge is added to the local host so the router can be accessed and requests can be forwarded via the FRR route, EPIC gateways and to the client clusters.
-
-The scripts and instructions are available in the [multinode directory](https://github.com/epic-gateway/dev-test-environment/tree/main/multinode)
