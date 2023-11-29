@@ -175,6 +175,29 @@ protocol bgp uplink1 {
 
 ```
 
+If your using the Vagrant Multinode, check the state of the router BGP connections.
+
+```bash
+$ vagrant ssh router
+$ sudo vtysh -c 'show ip bgp summary'
+IPv4 Unicast Summary:
+BGP router identifier 192.168.254.1, local AS number 4211111111 vrf-id 0
+BGP table version 16
+RIB entries 7, using 1288 bytes of memory
+Peers 3, using 2181 KiB of memory
+Peer groups 1, using 64 bytes of memory
+
+Neighbor        V         AS   MsgRcvd   MsgSent   TblVer  InQ OutQ  Up/Down State/PfxRcd   PfxSnt Desc
+*192.168.254.11 4 4200000003        11        10        0    0    0 00:07:32            0 (Policy) N/A
+*192.168.254.12 4 4200000003         7         7        0    0    0 00:04:24            0 (Policy) N/A
+*192.168.254.13 4 4200000003         6         6        0    0    0 00:03:21            0 (Policy) N/A
+
+Total number of neighbors 3
+* - dynamic neighbor
+3 dynamic neighbor(s), limit 100
+```
+
+
 ## Using the Vagrant Multinode Workload Clusters.
 If your using the Vagrant multinode environment, the ansible scripts include scripts to create the 3 node workload cluster.  
 
@@ -186,3 +209,5 @@ $ make epic-playbook TARGET=client
 ```bash
 $ make epic-playbook TARGET=node
 ```
+
+Configuring the Gateway Controller on k8s clusters is covered in the [Gateway Controller](/install_k8s_controller) section of the documentation.
