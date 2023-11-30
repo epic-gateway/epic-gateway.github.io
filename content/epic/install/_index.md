@@ -136,7 +136,22 @@ router           bird-epic-lc4fb                               0/1     Running  
 
 Above show that all components are installed and running
 
-### Completing the installation
+## Completing the installation
+### Gateways External API Address.
+EPIC has an API Service used by target clusters to configure gateways based upon OpenAPI.  Its access via a k8s Service Load Balancer (purelb) and an ingress controller (contour).
+
+The ansible installs both components and configures purelb with an address range that will be advertized when by routing.  
+
+```bash 
+$ kubectl get service -n projectcontour contour-envoy
+NAME            TYPE           CLUSTER-IP    EXTERNAL-IP       PORT(S)                      AGE
+contour-envoy   LoadBalancer   172.21.62.6   192.168.254.200   80:30509/TCP,443:32558/TCP   30h
+```
+This is the address that is used for the *gateway-hostname* by the Gateway Controller (not the host IP address).
+
+To change this address modify the PureLB Service Group information in the purelb namespace and cycle the service.  [Detailed documentation on purelb is here](https://github.com/purelb/purelb)
+
+### Configure Routing
 The final step is to configure routing for your environment.  The router PODS in EPIC use the Bird routing software.  The Bird Configuration consists of a *configmap* that references a set of configuration files.  These files are installed on the host operating system and are mounted into the Bird containers. This method was chosen because it separates routing configuration from k8s configuration, enables dynamic configuration of routing and enables nodes to have different routing configuration if necessary.  However it does require that configuration files be updated on each node independently.
 
 ```bash
