@@ -361,23 +361,378 @@ spec:
 ```
 
 ## Managing Gateways
+
+{{% alert title="Gateway Resource Structure" color="info" %}}
+The logical structure of resources in the gateway is very similar to the structure in a k8s workload cluster.
+
+| Gateway | Workload Cluster | Description |
+|---------|------------------|-------------|
+| gwp     | gtw              | Gateway Resource |
+| gwr     | httpRoute/tcpRoute | Route Resource |
+| gwes    | ep  | Endpoint Resource |
+
+{{% /alert %}}
+
 EPIC creates a number of component that result in the gateway creation.  A gateway consists of a ```deployment``` and a ```gwp``` gateway object.  The deployment is created dynamically and does not contain any user configurable objects.
 
 The ```gwp``` object is created from the ```lbsg``` template and contains the gateway configuration.  The ```gwp``` object can be modified resulting in dynamic configuration of the gateway.  (the envoy configuration is verified and will not be applied if it fails, more on that later).
 
 
-```bash
+```yaml
 $ kubectl get gwp
-NAME                                   CLIENT CLUSTER   CLIENT NS   CLIENT NAME   PUBLIC ADDRESS   SERVICE GROUP   SERVICE PREFIX
-4a5fb5b6-b53d-4513-b7a3-44f8bd919cac   gwdev            default     devtest       192.168.77.2     gatewayhttp     default
+root@epic-gateway:~# k get gwp -o yaml
+apiVersion: v1
+items:
+- apiVersion: epic.acnodal.io/v1
+  kind: GWProxy
+  metadata:
+    annotations:
+      nudge: 4d38a08610261432
+    creationTimestamp: "2023-11-29T20:58:33Z"
+    finalizers:
+    - epic.acnodal.io/controller
+    - epic-root.proxy.eds.epic.acnodal.io
+    - epic-gateway.gwp.node-agent.epic.acnodal.io
+    generation: 12
+    labels:
+      epic.acnodal.io/owning-account: root
+      epic.acnodal.io/owning-lbservicegroup: gatewayhttp
+      epic.acnodal.io/owning-serviceprefix: default
+    name: 4a5fb5b6-b53d-4513-b7a3-44f8bd919cac
+    namespace: epic-root
+    resourceVersion: "394437"
+    uid: 50744735-dd3d-4576-b55c-41151d38e3eb
+  spec:
+    clientRef:
+      clusterID: gwdev
+      name: devtest
+      namespace: default
+      uid: 4a5fb5b6-b53d-4513-b7a3-44f8bd919cac
+    display-name: devtest
+    endpoints:
+    - dnsName: devtest-default-root.example.net
+      recordTTL: 180
+      recordType: A
+      targets:
+      - 192.168.77.2
+    envoy-replica-count: 2
+    envoy-template:
+      envoyAPI: v3
+      envoyResources:
+        clusters:
+        - name: SET_BY_EPIC
+          value: "name: {{.ClusterName}}\nconnect_timeout: 2s\ntype: EDS\neds_cluster_config:\n
+            \ eds_config:\n    resource_api_version: V3\n    api_config_source:\n
+            \     api_type: GRPC\n      transport_api_version: V3\n      grpc_services:\n
+            \     - envoy_grpc:\n          cluster_name: eds-server\nlb_policy: MAGLEV\nhealth_checks:\n-
+            interval: 5s\n  timeout: 5s\n  no_traffic_interval: 3s \n  unhealthy_threshold:
+            3\n  healthy_threshold: 3\n  tcp_health_check: {}\n"
+        endpoints:
+        - name: SET_BY_EPIC
+          value: |
+            cluster_name: {{.ClusterName}}
+            {{- if .Endpoints}}
+            endpoints:
+            - lb_endpoints:
+            {{- range .Endpoints}}
+              - endpoint:
+                  address:
+                    socket_address:
+                      address: {{.Spec.Address}}
+                      protocol: {{.Spec.Port.Protocol | ToUpper}}
+                      port_value: {{.Spec.Port.Port}}
+            {{- end}}
+            {{- end}}
+        listeners:
+        - name: SET_BY_EPIC
+          value: |
+            name: {{.PortName}}
+            address:
+              socket_address:
+                address: "::"
+                ipv4_compat: yes
+                port_value: {{.Port}}
+                protocol: {{.Protocol | ToUpper}}
+            filter_chains:
+            - filters:
+
+              {{- with (.Routes | TCPRoutes) }}
+              - name: envoy.filters.network.tcp_proxy
+                typed_config:
+                  "@type": type.googleapis.com/envoy.extensions.filters.network.tcp_proxy.v3.TcpProxy
+                  stat_prefix: destination
+                  weighted_clusters:
+                    clusters:
+                  {{- range . }}
+                  {{- range .Rules }}
+                    {{- range .BackendRefs}}
+                    - name: {{ .Name }}
+                      weight: {{ .Weight }}
+                    {{- end }}
+                  {{- end }}
+                  {{- end }}
+              {{- end }}{{- /* with */}}
+
+              {{- with (.Routes | HTTPRoutes) }}
+              - name: envoy.http_connection_manager
+                typed_config:
+                  "@type": type.googleapis.com/envoy.extensions.filters.network.http_connection_manager.v3.HttpConnectionManager
+                  stat_prefix: {{ $.ServiceName }}
+                  server_name: epic-gateway
+                  add_user_agent: true
+                  use_remote_address: true
+                  via: my-epic-gateway
+                  route_config:
+                    name: local_route
+                    virtual_hosts:
+                    {{- range $spec := . }}
+                    {{- range .Hostnames | HostnameOrDefault }}
+                    - name: "{{ . }}"
+                      domains:
+                      - "{{ . }}"
+                      {{- if $spec.Rules}}
+                      routes:
+                      {{- range $spec.Rules }}
+                      -
+                        {{- if .Matches }}
+                        match:
+                          {{- $match := (index .Matches 0) }}
+                          {{- if $match.Path.Type | PathTypePathPrefix }}
+                          prefix: "{{ $match.Path.Value }}"
+                          {{- end }}
+                          {{- if $match.Path.Type | PathTypeExact }}
+                          path: "{{ $match.Path.Value }}"
+                          {{- end }}
+                          {{- if $match.Headers }}
+                          headers:
+                          {{- range $match.Headers }}
+                          - name: "{{ .Name }}"
+                            string_match:
+                            {{- if .Type | HeaderTypeRegex }}
+                              safe_regex:
+                                google_re2: {}
+                                regex: "{{ .Value }}"
+                            {{- else }}
+                              exact: "{{ .Value }}"
+                            {{- end }}
+                          {{- end }}
+                          {{- end }}
+                        {{- end }}{{- /* if .Matches */}}
+
+                        {{- if . | RuleRedirect }}
+                        redirect:
+                        {{- else }}
+                        route:
+                        {{- end }}
+
+                        {{- if .BackendRefs}}
+                          weighted_clusters:
+                            clusters:
+                            {{- range .BackendRefs}}
+                            - name: {{ .Name }}
+                              weight: {{ .Weight }}
+                            {{- end }}
+                            total_weight: {{ .BackendRefs | RefWeightsTotal }}
+                        {{- end }}
+
+                        {{- range .Filters }}
+                          {{- if .URLRewrite }}
+                          {{- if .URLRewrite.Hostname }}
+                          host_rewrite_literal: "{{ .URLRewrite.Hostname }}"
+                          {{- end }}
+                          {{- if .URLRewrite.Path }}
+                          {{- if .URLRewrite.Path.ReplacePrefixMatch }}
+                          prefix_rewrite: "{{ .URLRewrite.Path.ReplacePrefixMatch }}"
+                          {{- end }}
+                          {{- if .URLRewrite.Path.ReplaceFullPath }}
+                          regex_rewrite:
+                            pattern:
+                              google_re2: {}
+                              regex: "^.*$"
+                            substitution: "{{- .URLRewrite.Path.ReplaceFullPath }}"
+                          {{- end }}{{- /* if .URLRewrite.Path.ReplaceFullPath */}}
+                          {{- end }}{{- /* .URLRewrite.Path */}}
+                          {{- end }}{{- /* .URLRewrite */}}
+
+                          {{- if .RequestRedirect }}
+                          {{- if .RequestRedirect.Path }}
+                          {{- if .RequestRedirect.Path.ReplaceFullPath }}
+                          path_redirect: {{ .RequestRedirect.Path.ReplaceFullPath }}
+                          {{- end }}
+                          {{- if .RequestRedirect.Path.ReplacePrefixMatch }}
+                          prefix_rewrite: {{ .RequestRedirect.Path.ReplacePrefixMatch }}
+                          {{- end }}
+                          {{- end }}
+                          {{- if .RequestRedirect.Scheme }}
+                          scheme_redirect: {{ .RequestRedirect.Scheme }}
+                          {{- end }}
+                          {{- if .RequestRedirect.StatusCode }}
+                          response_code: {{ .RequestRedirect.StatusCode | StatusToResponse }}
+                          {{- end }}
+                          {{- if .RequestRedirect.Port }}
+                          port_redirect: {{ .RequestRedirect.Port }}
+                          {{- end }}
+                          {{- if .RequestRedirect.Hostname }}
+                          host_redirect: {{ .RequestRedirect.Hostname }}
+                          {{- end }}
+                          {{- end }}
+
+                          {{- if .RequestHeaderModifier }}
+                          {{- if (or .RequestHeaderModifier.Set .RequestHeaderModifier.Add) }}
+                        request_headers_to_add:
+                          {{- range .RequestHeaderModifier.Set }}
+                        - header:
+                            key: {{ .Name }}
+                            value: {{ .Value }}
+                          append: no
+                          {{- end }}
+                          {{- end }}
+                          {{- if .RequestHeaderModifier.Add }}
+                          {{- range .RequestHeaderModifier.Add }}
+                        - header:
+                            key: {{ .Name }}
+                            value: {{ .Value }}
+                          append: yes
+                          {{- end }}
+                          {{- end }}
+                          {{- if .RequestHeaderModifier.Remove }}
+                        request_headers_to_remove:
+                          {{- range .RequestHeaderModifier.Remove }}
+                        - {{ . }}
+                          {{- end }}
+                          {{- end }}
+
+                          {{- end }}{{- /* if .RequestHeaderModifier */}}
+                        {{- end }}{{- /* range .Filters */}}
+
+                      {{- end }}{{- /* range .Rules */}}
+                      {{- end }}{{- /* if .Rules */}}
+                    {{- end }}{{- /* range .Hostnames | HostnameOrDefault */}}
+                    {{- end }}{{- /* range $httpRoutes */}}
+
+                  http_filters:
+                  - name: envoy.filters.http.bandwidth_limit
+                    typed_config:
+                      "@type": type.googleapis.com/envoy.extensions.filters.http.bandwidth_limit.v3.BandwidthLimit
+                      stat_prefix: bandwidth_limiter_default
+                      enable_mode: REQUEST_AND_RESPONSE
+                      limit_kbps: 1000
+                      fill_interval: 0.1s
+                  - name: envoy.filters.http.router
+                    typed_config:
+                      "@type": type.googleapis.com/envoy.extensions.filters.http.router.v3.Router
+              {{ end }}{{- /* with */}}
+      nodeID: SET_BY_EPIC
+      serialization: yaml
+    gateway:
+      gatewayClassName: gwdev-http4
+      listeners:
+      - allowedRoutes:
+          namespaces:
+            from: Same
+        name: gwdev-web
+        port: 80
+        protocol: HTTP
+    gue-tunnel-endpoints:
+      192.168.121.104:
+        epic-endpoints:
+          192.168.121.184:
+            epic-address: 192.168.121.184
+            epic-port:
+              appProtocol: gue
+              port: 6080
+              protocol: UDP
+            tunnel-id: 1
+    proxy-if-info:
+      marin3r-envoydeployment-4a5fb5b6-b53d-4513-b7a3-44f8bd919ck8gp6:
+        epic-node-address: 192.168.121.184
+        epic-port:
+          appProtocol: gue
+          port: 6080
+          protocol: UDP
+        index: 28
+        name: veth8be647bc
+      marin3r-envoydeployment-4a5fb5b6-b53d-4513-b7a3-44f8bd919cx7g8z:
+        epic-node-address: 192.168.121.184
+        epic-port:
+          appProtocol: gue
+          port: 6080
+          protocol: UDP
+        index: 26
+        name: vethc3cf3503
+    public-address: 192.168.77.2
+    public-ports:
+    - name: gwdev-web
+      port: 80
+      protocol: TCP
+      targetPort: 0
+    tunnel-key: UGlAVddTslVy0wZVqsM+JQ==
+kind: List
+metadata:
+  resourceVersion: ""
+  selfLink: ""
+
 ```
 
 The name of the Gateway is dynamically generated and the summary information provides target cluster, ip address, template and IPAM information.
 
-In addition to the configuration, the ```gwp``` object includes useful debugging information.  It includes information transfered from the client cluster and displays the nodes that are currently configured to receive traffic via the GUI tunnels.
+In addition to the configuration, the ```gwp``` object includes useful debugging information.  It includes information transferred from the client cluster and displays the nodes that are currently configured to receive traffic via the GUI tunnels.
 
 
-The workload cluster creates endpoints for each pod that is exposed, these endpoints are transferred to EPIC to populate the Envoy configuration with endpoint addresses.  These endpoints are sorted in the ```gwes``` object.  In addition to providing Envoy with the endpoint information, EPIC also stores target cluster information to make operation visable and easily correlatable.  (there is a graphical display in the Gateway-as-Service system)
+
+The routes configured in the workload cluster are reflected in the gateway and can be inspected in the ```gwr``` resource.
+
+
+```yaml
+$ kubectl get gwr -o yaml
+apiVersion: v1
+items:
+- apiVersion: epic.acnodal.io/v1
+  kind: GWRoute
+  metadata:
+    creationTimestamp: "2023-11-29T20:58:34Z"
+    finalizers:
+    - epic.acnodal.io/controller
+    - epic-root.rt.eds.epic.acnodal.io
+    generation: 1
+    labels:
+      epic.acnodal.io/owning-account: root
+    name: 49c334ac-db7b-41fc-8d32-1dd55c2d6ff8
+    namespace: epic-root
+    resourceVersion: "41243"
+    uid: f9217deb-5d46-45ff-9097-5444313798fc
+  spec:
+    clientRef:
+      clusterID: gwdev
+      name: devtest-1
+      namespace: default
+      uid: 49c334ac-db7b-41fc-8d32-1dd55c2d6ff8
+    http:
+      parentRefs:
+      - group: gateway.networking.k8s.io
+        kind: Gateway
+        name: 4a5fb5b6-b53d-4513-b7a3-44f8bd919cac
+      rules:
+      - backendRefs:
+        - group: ""
+          kind: Service
+          name: 3dbc2265-3ec5-4bdf-82e1-86514d7f8321
+          port: 8080
+          weight: 1
+        matches:
+        - path:
+            type: PathPrefix
+            value: /
+kind: List
+metadata:
+  resourceVersion: ""
+  selfLink: ""
+
+```
+
+
+
+The workload cluster creates endpoints for each pod that is exposed, these endpoints are transferred to EPIC to populate the Envoy configuration with endpoint addresses.  These endpoints are sorted in the ```gwes``` object.  In addition to providing Envoy with the endpoint information, EPIC also stores target cluster information to make operation visible and easily correlatable.  (there is a graphical display in the Gateway-as-Service system)
 
 ```yaml
 apiVersion: epic.acnodal.io/v1
@@ -432,7 +787,7 @@ spec:
     protocol: TCP
 ```
 
-In general gateways and endpoints are deleted by the workload cluster, but should it be necessary they can be deleted in the EPIC gateway
+In general gateways, routes and endpoints are deleted by the workload cluster, but should it be necessary they can be deleted in the EPIC gateway
 
 
 
