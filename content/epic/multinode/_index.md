@@ -21,6 +21,7 @@ net1 --- E3[EPIC Node 3]
 net1 --- K1[k8s node 1]
 net1 --- K2[k8s node 2]
 net1 --- K3[k8s node 3]
+net1 --- AdHoc[AdHoc Linux Node]
 net2([net brext0])
 net1([net user-epic0])
 
@@ -63,22 +64,28 @@ The router VM activation script create the internal bridge interface used by all
 
 
 ```sh
-$ git clone --recurse-submodules https://github.com/epic-gateway/dev-test-environment.git
-$ cd dev-test-environment/multinode
-$ vagrant up router <= bring up the router VM first...
-$ vagrant up <= create the rest of the VMs
+git clone --recurse-submodules https://github.com/epic-gateway/dev-test-environment.git
+cd dev-test-environment/multinode
+vagrant up router #<= bring up the router VM first...
+vagrant up #<= create the rest of the VMs
 ```
 
 To connect to the nodes via the router from your host directly.
 
-```sh
+```
 $ vagrant ssh router -- ip -br addr show dev eth2
 eth2             UP             172.30.255.237/24
 
-$  sudo ip route add 192.168.254.0/24 via 172.30.255.237
+$ sudo ip route add 192.168.254.0/24 via 172.30.255.237
 
 $ ping 192.168.254.11 <= epic1
 
 ```
 
-The next steps are to install EPIC and a workload cluster using your preferred k8s installation mechanism.
+The next steps are to install EPIC and a workload cluster.  All of these nodes have ansible scripts.  You can choose to install all of the nodes or some of them using these scripts
+
+```bash
+git clone https://github.com/epic-gateway/ansible-playbook.git
+```
+
+

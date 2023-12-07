@@ -10,7 +10,7 @@ description: >
 This [github project](https://github.com/epic-gateway/dev-test-environment) provides scripts to install and configure EPIC Gateway development/test environments. There are two environments:
 
 * Single Node: a minimal environment with two single-VM Kubernetes clusters: one running EPIC, and one running a Gateway API client for testing. The two VMs use a network bridge to talk to one another. This environment is a good starting place if you'd like to learn about EPIC Gateway.
-* [Multinode](multinode/): a more realistic (but much more complex) environment with two 3-node clusters, a private internal bridge, a private external bridge, and a router for access to the bridge. Multinode is only recommended if you know you need it.
+* [Multinode](/epic/multinode/): a more realistic (but much more complex) environment with two 3-node clusters, a private internal bridge, a private external bridge, and a router for access to the bridge. Multinode is only recommended if you know you need it.
 
 ## Prerequisites
 

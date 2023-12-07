@@ -57,6 +57,11 @@ The k8s Gateway API and Gateway Controller (pure-gw) are installed using the fol
 $ kubectl apply -f https://github.com/kubernetes-sigs/gateway-api/releases/download/v0.5.1/experimental-install.yaml
 $ kubectl apply -f https://github.com/epic-gateway/pure-gateway/releases/download/v0.24.0/pure-gateway.yaml
 ```
+{{% alert title="Multinode Development Environment" color="info" %}}
+
+If your using the vagrant multinode development environment the ansible scripts install the GatewayAPI and Gateway controller as well as adding a ```gatewayclassconfig``` and ```gatewayclass``` that matches the multinode EPIC configuration
+{{% /alert %}}
+
 
 
 ## Configuration
@@ -182,6 +187,166 @@ Inspecting the httpRoute resource will provide status information including conf
 {{% alert title="Endpoint Debugging" color="warn" %}}
 The controller updates EPIC when Endpoints are created, not when services are created.  This is where EPIC gets the POD addresses used to distribute requires to each node/pod combination.  Its good first step in workload cluster debugging is checking that endpoints are present using *kubectl get ep*
 {{% /alert %}}
+
+
+## Multi-cluster
+The Gateway and workload controllers supports multi-cloud, multi-cluster.  A Gateway can be shared among multiple clusters.  The routes created in each cluster are merged by EPIC.  A route can be used to direct request to a backend in a specific cluster or used to load balance request across clusters.  To enable Gateway sharing *can-be-shared* must be enabled in the ```gwp``` resource or the ```lbsg``` template user to great it.
+
+<p align="center">
+<img src="multiroute-diagram.png" style="width:600px">
+</p>
+
+The diagram below shows the relationship between the resources in the EPIC and the clusters.  The structure of objects in EPIC logically mirrors the structure in the cluster so that the relationship between resources can be easily identified.
+
+```mermaid
+flowchart TB
+    Z[Gateway] --- A1
+    Z --- A2
+    Z --- Z1[Routes]
+    Z1 --- Z2[EndPoints]
+    
+
+
+    D1 -.-> Z1
+    D2 -.-> Z1
+    E1 -.-> Z2
+    E2 -.-> Z2
+
+
+
+    A1[gatewayClassConfig] --- B1
+    B1[gatewayClass] --- C1
+    C1[gateway] --- D1
+    D1[route] --- E1
+    E1[Service A]
+
+    A2[gatewayClassConfig] --- B2
+    B2[gatewayClass] --- C2
+    C2[gateway] --- D2
+    D2[route] --- E2
+    E2[Service B]
+    subgraph Cluster A
+    A1
+    B1
+    C1
+    D1
+    E1
+    end
+    subgraph Cluster B
+    A2
+    B2
+    C2
+    D2
+    E2
+    end
+    subgraph EPIC
+        Z
+        Z1
+        Z2
+    end
+
+```
+### Configuration.
+Both clusters create a *GatewayClassConfig* that references the same EPIC gateway template, and create a *GatewayClass*
+
+
+The initial gateway is created and the sharing key used to attached to that gateway is contained in the status of the original gateway.  Any number of cluster gateways can be attached to the EPIC gateway using the sharing key
+
+
+```yaml
+- apiVersion: gateway.networking.k8s.io/v1alpha2
+  kind: Gateway
+  metadata:
+    annotations:
+      acnodal.io/epic-config: epic-gateway/uswest-gtwapi
+      acnodal.io/epic-link: /api/epic/accounts/epictest/proxies/ff2ac5e8-beed-4181-96cb-244dbd104ae9
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"gateway.networking.k8s.io/v1alpha2","kind":"Gateway","metadata":{"annotations":{},"name":"uswest-gtwapi","namespace":"demoapi"},"spec":{"gatewayClassName":"uswest-gtwapi","listeners":[{"allowedRoutes":{"namespaces":{"from":"All"}},"name":"gwapi","port":443,"protocol":"HTTPS"}]}}
+    creationTimestamp: "2022-04-19T18:16:17Z"
+    finalizers:
+    - epic.acnodal.io/controller
+    generation: 1
+    name: uswest-gtwapi
+    namespace: demoapi
+    resourceVersion: "2543805"
+    uid: ff2ac5e8-beed-4181-96cb-244dbd104ae9  <-- sharing key
+  spec:
+    gatewayClassName: uswest-gtwapi
+    listeners:
+    - allowedRoutes:
+        namespaces:
+          from: All
+      name: gwapi
+      port: 443
+      protocol: HTTPS
+  status:
+    addresses:
+    - type: IPAddress
+      value: 72.52.101.1
+    - type: Hostname
+      value: uswest-gtwapi-demoapi-epictest-uswest.epick8sgw.net
+    conditions:
+    - lastTransitionTime: "2022-04-19T18:16:17Z"
+      message: Announced to EPIC
+      observedGeneration: 1
+      reason: Valid
+      status: "True"
+      type: Ready
+```
+
+
+Above is the initial gateway to be shared, the sharing key is contained in  *metadata.uuid*
+
+The uuid is added to the metadata annotation *acnodal.io/epic-sharing-key*
+as per below.
+
+```yaml
+- apiVersion: gateway.networking.k8s.io/v1alpha2
+  kind: Gateway
+  metadata:
+    annotations:
+      acnodal.io/epic-config: epic-gateway/uswest-gtwapi
+      acnodal.io/epic-link: /api/epic/accounts/epictest/proxies/ff2ac5e8-beed-4181-96cb-244dbd104ae9
+      acnodal.io/epic-sharing-key: ff2ac5e8-beed-4181-96cb-244dbd104ae9
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"gateway.networking.k8s.io/v1alpha2","kind":"Gateway","metadata":{"annotations":{"acnodal.io/epic-sharing-key":"ff2ac5e8-beed-4181-96cb-244dbd104ae9"},"name":"uswest-gtwapi","namespace":"demoapi"},"spec":{"gatewayClassName":"uswest-gtwapi","listeners":[{"allowedRoutes":{"namespaces":{"from":"All"}},"name":"gwapi","port":443,"protocol":"HTTPS"}]}}
+    creationTimestamp: "2022-04-19T18:23:15Z"
+    finalizers:
+    - epic.acnodal.io/controller
+    generation: 1
+    name: uswest-gtwapi
+    namespace: demoapi
+    resourceVersion: "5256593"
+    uid: afef5e7a-10c4-4659-b94d-69ff0d3460e0
+  spec:
+    gatewayClassName: uswest-gtwapi
+    listeners:
+    - allowedRoutes:
+        namespaces:
+          from: All
+      name: gwapi
+      port: 443
+      protocol: HTTPS
+  status:
+    addresses:
+    - type: IPAddress
+      value: 72.52.101.1
+    - type: Hostname
+      value: uswest-gtwapi-demoapi-epictest-uswest.epick8sgw.net
+    conditions:
+    - lastTransitionTime: "2022-04-19T18:23:16Z"
+      message: Announced to EPIC
+      observedGeneration: 1
+      reason: Valid
+      status: "True"
+      type: Ready
+```
+
+Both Gateways will share the same EPIC gateway configuration including IP Address and FQDN.  httpRoutes added to the gateway object in each cluster are merged by EPIC into a single route configuration.
+
+
+The ```gwr``` resource will show the routes to both workload clusters.  The ```ec``` resource will also show the merged configuration.
+
 
 ## Getting more Information.
 
