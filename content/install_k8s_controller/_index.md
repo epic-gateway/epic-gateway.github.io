@@ -7,8 +7,7 @@ description: >
 ---
 
 
-To configure and communicate with the Gateway a Gateway controller is installed on the cluster.  The installation consists of support for a specific version of the standard GatewayAPI that support specific features enabled by EPIC and the EPIC gateway controller (pure-gateway)
-
+To configure and communicate with the Gateway a controller is installed on the cluster.  The installation consists of support for a specific version of the standard GatewayAPI that supports features enabled by EPIC and the EPIC gateway controller (puregw).
 
 The definition of Gateways is logically separated into activities: the creation of GatewayClassConfig & GatewayClass, and the creation of the gateway and its associated routes.
 
@@ -50,18 +49,30 @@ graph LR
 | service | namespace | k8s API | Exposing POD protocols & ports |
 
 
-## Installation
-The k8s Gateway API and Gateway Controller (pure-gw) are installed using the following manifests.
+## Prerequisites
+
+Before installing PureGW you need to install the [Gateway-SIG](https://gateway-api.sigs.k8s.io/) custom resource definitions manually. Eventually they'll be bundled into Kubernetes but they aren't yet.
 
 ```bash
 $ kubectl apply -f https://github.com/kubernetes-sigs/gateway-api/releases/download/v0.5.1/experimental-install.yaml
-$ kubectl apply -f https://github.com/epic-gateway/pure-gateway/releases/download/v0.24.0/pure-gateway.yaml
 ```
+
+## Installation
+
+To install PureGW, apply `pure-gateway.yaml` from the most recent release on GitHub:
+https://github.com/epic-gateway/puregw/releases
+
+For example, if the most recent release is v0.26.0, then you can install PureGW by running:
+
+```bash
+$ kubectl apply -f https://github.com/epic-gateway/puregw/releases/download/v0.26.0/pure-gateway.yaml
+```
+
+You should see one instance of the manager pod running, and one instance of the agent pod running on each node in the cluster.
+
 {{% alert title="Multinode Development Environment" color="info" %}}
-
-If your using the vagrant multinode development environment the ansible scripts install the GatewayAPI and Gateway controller as well as adding a ```gatewayclassconfig``` and ```gatewayclass``` that matches the multinode EPIC configuration
+If you're using the vagrant multinode development environment the ansible scripts install the GatewayAPI and Gateway controller as well as adding a ```gatewayclassconfig``` and ```gatewayclass``` that matches the multinode EPIC configuration.
 {{% /alert %}}
-
 
 
 ## Configuration
@@ -246,7 +257,7 @@ flowchart TB
     end
 
 ```
-### Configuration.
+### Configuration
 Both clusters create a *GatewayClassConfig* that references the same EPIC gateway template, and create a *GatewayClass*
 
 
@@ -348,10 +359,10 @@ Both Gateways will share the same EPIC gateway configuration including IP Addres
 The ```gwr``` resource will show the routes to both workload clusters.  The ```ec``` resource will also show the merged configuration.
 
 
-## Getting more Information.
+## Getting more Information
 
 
-A more complex route that includes header matches and path matches is below
+Here's a more complex route that includes header matches and path matches:
 
 ```yaml
 apiVersion: gateway.networking.k8s.io/v1alpha2
@@ -383,6 +394,5 @@ spec:
         value: /api
 ```
 
-
-The syntax of Gateway Resources is defined in the k8s GatewayAPI, EPIC and the Gateway Controller are an implementation of this API. Further information can be found in the [official k8s documentation](https://gateway-api.sigs.k8s.io/)  Note that tcpRoute as well as a number of other capabilities supported are experimental alpha features.
+The syntax of Gateway Resources is defined in the k8s GatewayAPI. EPIC and the Gateway Controller are an implementation of this API. Further information can be found in the [official k8s documentation](https://gateway-api.sigs.k8s.io/).  Note that tcpRoute as well as a number of other capabilities supported are experimental alpha features.
 
