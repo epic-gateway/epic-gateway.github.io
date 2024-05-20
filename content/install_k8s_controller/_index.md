@@ -98,7 +98,7 @@ spec:
     decapAttachment:
       direction: ingress
       interface: default
-      flags: 1
+      flags: 0
       qid: 0
     encapAttachment:
       direction: egress
